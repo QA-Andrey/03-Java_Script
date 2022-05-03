@@ -53,6 +53,19 @@ const enterprises = [
     ]
   }
 ]
+maxID = 0
+enterprises.forEach (item => {
+  if (item.id > maxID) {
+    maxID = item.id
+  }
+  item.departments.forEach (depts => {
+  if (depts.id > maxID) {
+    maxID = depts.id
+  }
+  })
+})
+
+
 
 // Задания:
 // 1. Вывести все предприятия и их отделы. Рядом указать количество сотрудников. Для предприятия посчитать сумму всех сотрудников во всех отделах.
@@ -71,116 +84,95 @@ const enterprises = [
 // - Отдел аналитики (нет сотрудников)
 
 // 1ый вариант записи
-// for (i=0; i<enterprises.length; i++) {
-//   a = 0
-//   for (k=0; k<enterprises[i].departments.length; k++) {
-//   a += enterprises[i].departments[k].employees_count
-//   }
-//   if (a>0) {
-//     console.log (enterprises[i].name, '('+ a + ' сотрудников)')
-//   }
-//   else {
-//     console.log (enterprises[i].name, '(нет сотрудников)')
-//   }
-//   for (j=0; j<enterprises[i].departments.length; j++) {
-//     if (a>0) {
-//     console.log ('-',  enterprises[i].departments[j].name, '('+ enterprises[i].departments[j].employees_count +' сотрудников)')
-//     }
-//     else (console.log ('-',  enterprises[i].departments[j].name, '(нет сотрудников)'))
-//   }
-// }
+for (i=0; i<enterprises.length; i++) {
+  emplNum = 0
+  for (k=0; k<enterprises[i].departments.length; k++) {
+  emplNum += enterprises[i].departments[k].employees_count
+  }
+  if (emplNum>0) {
+    console.log (enterprises[i].name, '('+ emplNum + ' сотрудников)')
+  }
+  else {
+    console.log (enterprises[i].name, '(нет сотрудников)')
+  }
+  for (j=0; j<enterprises[i].departments.length; j++) {
+    if (emplNum>0) {
+    console.log ('-',  enterprises[i].departments[j].name, '('+ enterprises[i].departments[j].employees_count +' сотрудников)')
+    }
+    else (console.log ('-',  enterprises[i].departments[j].name, '(нет сотрудников)'))
+  }
+}
 
 
 // 2ой вариант записи
-
-// enterprises.forEach (company => {
-//     if (company.departments) {
-//     a = 0
-//     company.departments.forEach (dept => {
-//     a += dept.employees_count
-//     })
-//     if (a>0){
-//       console.log (company.name, '(' + a + ' сотрудников)')
-//     }
-//     else {
-//       console.log (company.name, '(нет сотрудников)')
-//     }
-//         company.departments.forEach (dept => {
-//           if (a>0) {
-//             console.log ('-', dept.name, '(' + dept.employees_count + ' сотрудников)')
-//           }
-//           else {
-//             console.log ('-', dept.name, '(нет сотрудников)')
-//           }
-//         })
-//     }
-// })
-
-
+enterprises.forEach (company => {
+    if (company.departments) {
+    emplNum = 0
+    company.departments.forEach (dept => {
+    emplNum += dept.employees_count
+    })
+    if (emplNum>0){
+      console.log (company.name, '(' + emplNum + ' сотрудников)')
+    }
+    else {
+      console.log (company.name, '(нет сотрудников)')
+    }
+        company.departments.forEach (dept => {
+          if (emplNum>0) {
+            console.log ('-', dept.name, '(' + dept.employees_count + ' сотрудников)')
+          }
+          else {
+            console.log ('-', dept.name, '(нет сотрудников)')
+          }
+        })
+    }
+})
 
 
 // 2. Написать функцию, которая будет принимать 1 аргумент (id отдела или название отдела и возвращать название предприятия, 
 // к которому относится).
-
 // Пример:
 // getEnterpriseName(4) // Предприятие 1
 // getEnterpriseName("Отдел маркетинга") // Предприятие 2
 
-// console.log (enterprises[0].departments[0].id)
+var loopEnd = false
+var lastLoop = false
 
-// var loopEnd = false
-// var lastLoop = false
+let getEnterpriseName = function (data) { 
+  for (i=0; i<enterprises.length; i++) {
+    for (j=0; j<enterprises[i].departments.length;j++){
+      if (enterprises[i].departments[j].id == data || enterprises[i].departments[j].name == data ) {
+          loopEnd = true
+          console.log (enterprises[i].name)
+      break}
 
-// let getEnterpriseName = function (data) { 
-//   for (i=0; i<enterprises.length; i++) {
-//     for (j=0; j<enterprises[i].departments.length;j++){
-//       if (enterprises[i].departments[j].id == data || enterprises[i].departments[j].name == data ) {
-//           loopEnd = true
-//           console.log (enterprises[i].name)
-//       break}
-
-//       else if (i == enterprises.length-1 && j == enterprises[i].departments.length-1) { 
-//           lastLoop = true}
+      else if (i == enterprises.length-1 && j == enterprises[i].departments.length-1) { 
+          lastLoop = true}
       
-//     } 
-//   if (loopEnd) {
-//       break}
-//   else if (lastLoop) {
-//       console.log ('There is no such department!')}
-//   }
-//   }
-// getEnterpriseName ("Отдел маркетинга")
-
+    } 
+  if (loopEnd) {
+      break}
+  else if (lastLoop) {
+      console.log ('There is no such department!')}
+  }
+  }
+getEnterpriseName ("Отдел аналитики")
 
 
 // 3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
-
 // Пример:
 // addEnterprise("Название нового предприятия")
 
-// max = 0
-// enterprises.forEach (item => {
-//   if (item.id > max) {
-//     max = item.id
-//   }
-//   item.departments.forEach (depts => {
-//   if (depts.id > max) {
-//     max = depts.id
-//   }
-//   })
-// })
-//   console.log (max)
+const addEnterprise = function (company) {enterprises.push (
+  {
+  id: maxID+1,
+  name: company,
+  departments: [],
+  }
+)}
 
-// const addEnterprise = function (company) {enterprises.push (
-//   {
-//   id: max+1,
-//   name: company,
-//   departments: [],
-//   }
-// )}
-
-// addEnterprise ('Предприятие 4')
-// console.log (enterprises)
+addEnterprise ('Предприятие 4')
+console.log (enterprises)
 
 
 // 4. Написать функцию, которая будет добавлять отдел в предприятие. В качестве аргумента принимает id предприятия,
@@ -188,30 +180,18 @@ const enterprises = [
 // Пример:
 // addDepartment(1, "Название нового отдела")
 
-// newMax = 0
-// enterprises.forEach (item => {
-//   if (item.id > newMax) {
-//     newMax = item.id
-//   }
-//   item.departments.forEach (depts => {
-//   if (depts.id > newMax) {
-//     newMax = depts.id
-//   }
-//   })
-// })
+let addDepartment = function (compID, deptName) {
+  compIndex = enterprises.findIndex (item => item.id === compID)
+  if (enterprises[compIndex]) {
+      enterprises[compIndex].departments.push ({id: maxID+1, name: deptName, employees_count:0})
+      console.log (enterprises[compIndex].name, enterprises[compIndex].departments)
+  }
+  else {
+    console.log ('There is no Enterprise with this ID')
+  }
+}
 
-// let addDepartment = function (compID, deptName) {
-//   a = enterprises.findIndex (item => item.id === compID)
-//   if (enterprises[a]) {
-//       enterprises[a].departments.push ({id: newMax+1, name: deptName, employees_count:0})
-//       console.log (enterprises[a].name, enterprises[a].departments)
-//   }
-//   else {
-//     console.log ('There is no Enterprise with this ID')
-//   }
-// }
-
-// addDepartment (1, 'Название нового отдела')
+addDepartment (4, 'Название нового отдела')
 
 
 // 5. Написать функцию для редактирования названия предприятия. 
@@ -219,18 +199,18 @@ const enterprises = [
 // Пример:
 // editEnterprise(1, "Новое название предприятия")
 
-// let editEnterpriseName = function (compID, newName) {
-//     a = enterprises.findIndex (item => item.id === compID)
-//     if (enterprises[a]) {
-//       enterprises[a].name = newName
-//       console.log (enterprises)
-//     }
-//     else {
-//       console.log ('There is no Enterprise witр this ID')
-//     }
-//   }
+let editEnterpriseName = function (compID, newName) {
+    compIndex = enterprises.findIndex (item => item.id === compID)
+    if (enterprises[compIndex]) {
+      enterprises[compIndex].name = newName
+      console.log (enterprises)
+    }
+    else {
+      console.log ('There is no Enterprise witр this ID')
+    }
+  }
 
-// editEnterpriseName (5, 'Test')
+editEnterpriseName (9, 'Test Company')
 
 
 // 6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
@@ -239,34 +219,88 @@ const enterprises = [
 
 const editDepartmentName = function (deptID, newName) {
   enterprises.forEach (comp => {
-    a = comp.departments.findIndex ( dept => dept.id === deptID)
-    // console.log (a)
-    if (a == -1) { }
+    deptIndex = comp.departments.findIndex ( dept => dept.id === deptID)
+    if (deptIndex === -1) { }
     else {
-      comp.departments[a].name = newName
+      comp.departments[deptIndex].name = newName
       console.log (comp.departments)
     }
   })
  console.log ('There is no department with this ID')
 }
 
- editDepartmentName (1, 'Test')
+ editDepartmentName (10, 'Test Department')
 
 
 // 7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
-
 // Пример:
 // deleteEnterprise(1)
 
+const deleteEnterprise = function (entID) {
+  if (enterprises.find (item => item.id == entID)) {
+      b = enterprises.filter (item => item.id !== entID)
+      console.log (b)
+  }
+  else {
+      console.log ('There is no Company with this ID')
+  }
+}
 
-// 8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
+deleteEnterprise (1)
 
+
+
+// 8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела.
+// Удалить отдел можно только, если в нем нет сотрудников.
 // Пример:
 // deleteDepartment(3)
 
 
-// 9. Написать функцию для переноса сотрудников между отделами одного предприятия. В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
+const deleteDepartment = function (deptID) {
+  b = -2
+  enterprises.forEach (compnay => {
+  a = compnay.departments.findIndex (dept => dept.id == deptID)
+      if (a>-1) {
+      compnay.departments.splice(a,1)
+      b = a      
+      console.log (compnay.name, compnay.departments)    
+  }    
+  
+})
+if (b == -2) {
+console.log ('There is no department with this ID')
+}
+}
 
+deleteDepartment (3)
+
+
+// 9. Написать функцию для переноса сотрудников между отделами одного предприятия. 
+// В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники
+// и id отдела, в который будут переноситься сотрудники).
 // Пример:
 // moveEmployees(2, 3)
 
+const moveEmployees = function (oldDept, newDept) {
+  j = 0
+  enterprises.forEach (company => {
+      a = company.departments.findIndex(dept => dept.id == newDept)
+      b = company.departments.findIndex(dept => dept.id == oldDept)
+      if (a>=0 && b>=0 && a!==b) {
+          j = -2
+          d = company.departments[a].employees_count + company.departments[b].employees_count
+          console.log (company.departments[a].name, company.departments[a].employees_count)
+          console.log (company.departments[b].name, company.departments[b].employees_count)
+
+          company.departments[a].employees_count = d
+          company.departments[b].employees_count = 0
+          console.log (company.departments[a].name, company.departments[a].employees_count)
+          console.log (company.departments[b].name, company.departments[b].employees_count)           
+      }
+  })      
+  if (j == 0) {
+      console.log ('There is no Compnay with this departments ID combination')
+  }
+}
+
+moveEmployees (7,7)

@@ -83,15 +83,11 @@ const users = [
     },
 ];
 
-// for (i=0; i<users.length; i++) {
-//     if (users[i].registrationDate === '09.10.2021' || users[i].registrationDate === '10.10.2021'){
-//         console.log (users[i])
-//     }
-// }
-
-
-
-
+for (i=0; i<users.length; i++) {
+    if (users[i].registrationDate === '09.10.2021' || users[i].registrationDate === '10.10.2021'){
+        console.log (users[i])
+    }
+}
 
 // Task 2*. Откройте в VSCode task2.json файл. Скопируйте из него JSONку, вставьте в свой код (присвоив в переменную).
 // Дан массив объектов. Каждый объект является идентификационной карточкой человека. 
@@ -451,30 +447,25 @@ const task2Data = [{
 }
 ]
 
-// let unique = Array.from(new Set(task2Data.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
-// console.log (unique)
-
-var uniqueArray = [...new Set(task2Data)]
-console.log("Array with unique values = ",uniqueArray);
-
-
+let unique = Array.from(new Set(task2Data.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
+console.log ("Array with unique values = ", unique)
 
 
 // Task 2*** Реализуйте считывание из JSONки из файла task2.json с помощью, например, модуля fs.
 //  для дальнейшего использования в функции, описанной в задании.
 //  (ничего умнее того, что ниже, я не придумал :)))
 
-// const fs = require ('fs')
+const fs = require ('fs')
 
-// fs.readFile ('task2.json', function (err, data){
-//     if (err) {console.error (err)
-//     }
-//     else {
-//          a = JSON.parse(data)
-//          b = Array.from(new Set(a.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
-//          console.log (b) 
-//     }
-// })
+fs.readFile ('task2.json', function (err, data){
+    if (err) {console.error (err)
+    }
+    else {
+         a = JSON.parse(data)
+         b = Array.from(new Set(a.map(item => JSON.stringify(item)))).map(item => JSON.parse(item));
+         console.log (b) 
+    }
+})
 
 
 
