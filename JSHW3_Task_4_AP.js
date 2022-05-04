@@ -75,7 +75,22 @@ const company = [
   }
 ]
 
-// console.log (company[0].children[0].children)
+
+let childrenRecursion = function (obj, data) {
+  for (key in obj) {
+    if (obj[key].parent == null) {
+    console.log (obj[key].name, obj [key].users_count)
+    }
+    else {
+    console.log (data, obj[key].name, obj [key].users_count)
+    }
+    childrenRecursion (obj[key].children, data + '--')
+  }
+}
+   
+childrenRecursion (company, '')
+
+
 
 /* 
 Написать функцию: 
@@ -98,19 +113,19 @@ const company = [
 ---- HR (1)
 */
 
-company.forEach (item => {
-  console.log(item.name, "(" + item.users_count +')')
-  if (item.children) {
-    item.children.forEach (kid => {
-        console.log ('--', kid.name, '(' + kid.users_count + ')')
-        if (kid.children) {
-          kid.children.forEach ( child2 => {
-            console.log ('----', child2.name, '(' + child2.users_count + ')')
-            if (child2.children) {
-              child2.children.forEach ( child3 => console.log ('------', child3.name, '(' + child3.users_count + ')'))
-            }  
-          }) 
-        }
-    })
-  }
-})
+
+
+
+//     item.children.forEach (kid => {
+//         console.log ('--', kid.name, '(' + kid.users_count + ')')
+//         if (kid.children) {
+//           kid.children.forEach ( child2 => {
+//             console.log ('----', child2.name, '(' + child2.users_count + ')')
+//             if (child2.children) {
+//               child2.children.forEach ( child3 => console.log ('------', child3.name, '(' + child3.users_count + ')'))
+//             }  
+//           }) 
+//         }
+//     })
+//   }
+// })
