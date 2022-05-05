@@ -261,18 +261,24 @@ const deleteDepartment = function (deptID) {
   enterprises.forEach (compnay => {
   a = compnay.departments.findIndex (dept => dept.id == deptID)
       if (a>-1) {
-      compnay.departments.splice(a,1)
-      b = a      
-      console.log (compnay.name, compnay.departments)    
+          if (compnay.departments[a].employees_count > 0) {
+              console.log ('You can not delete this department as it has employees')
+              b = a 
+          }
+          else {
+              compnay.departments.splice(a,1)
+              b = a      
+              console.log (compnay.name, compnay.departments)
+          }
+          
   }    
-  
 })
 if (b == -2) {
 console.log ('There is no department with this ID')
 }
 }
+deleteDepartment (10)
 
-deleteDepartment (3)
 
 
 // 9. Написать функцию для переноса сотрудников между отделами одного предприятия. 
